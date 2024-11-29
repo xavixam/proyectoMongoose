@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const ProductSchema = new mongoose.Schema({
     name: String,
     price: Number,
+    tokens: [],
 }, { timestamps: true });
 
 ProductSchema.index({
