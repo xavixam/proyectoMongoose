@@ -12,11 +12,7 @@ Likes:
 Endpoint para dar un like a un post
 Endpoint para quitar like a un post
 
-  Comments
-
-Endpoint para crear un comentario en un determinado post
-
- Usuarios
+Usuarios
 
 Endpoint para registrar un usuario utilizando bcrypt
 Endpoint para login(utilizando bcrypt +JWT)
@@ -50,8 +46,7 @@ El endpoint que trae todos los posts junto a los usuarios que hicieron ese post 
 Endpoint para buscar usuario por nombre
 Endpoint para buscar usuario por id
 Crea una documentación de los endpoints de tu proyecto
-Comments
-CRUD comments
+
 Likes:
 Dar un like a un comentario
 Quitar like a un comentario
