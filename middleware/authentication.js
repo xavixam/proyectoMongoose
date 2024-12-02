@@ -1,4 +1,4 @@
-const Product = require('../models/Product');
+const Post = require('../models/Post');
 const jwt = require('jsonwebtoken');
 const { jwt_secret } = require('../config/keys.js')
 
@@ -7,13 +7,13 @@ const authentication = async(req, res, next) => {
     try {
         const token = req.headers.authorization;
         const payload = jwt.verify(token, jwt_secret);
-        const product = await Product.findOne({ _id: payload._id, tokens: token });
+        const post = await Post.findOne({ _id: payload._id, tokens: token });
 
-        if (!product) {
+        if (!post) {
             return res.status(401).send({ message: 'No estas autorizado' });
         }
 
-        req.product = product;
+        req.post = post;
         next();
         
     } catch (error) {
