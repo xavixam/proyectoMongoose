@@ -1,15 +1,9 @@
 const Post = require("../models/Post")
-const jwt = require('jsonwebtoken');
-const { jwt_secret } = require('../config/keys.js')
 
 const ProductController = {
     async create(req, res) {
         try {
             const post = await Post.create(req.body)
-            const token = jwt.sign({ _id: post._id }, jwt_secret);
-
-            // if (post.tokens.length > 4) post.tokens.shift();
-            // post.tokens.push(token);
 
             res.status(201).send({ message: "New post successfully created", post })
         } catch (error) {

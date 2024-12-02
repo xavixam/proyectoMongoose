@@ -1,7 +1,6 @@
 const express = require("express")
 const PostController = require("../controllers/PostController")
 const router = express.Router()
-const { authentication } = require("../middleware/authentication");
 
 router.get("/",PostController.getAll)
 router.post("/create", PostController.create)
