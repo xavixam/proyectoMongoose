@@ -1,6 +1,6 @@
 const Post = require("../models/Post")
 
-const ProductController = {
+const PostController = {
     async create(req, res) {
         try {
             const post = await Post.create(req.body)
@@ -63,4 +63,4 @@ const ProductController = {
 
 }
 
-module.exports = ProductController
+module.exports = PostController
