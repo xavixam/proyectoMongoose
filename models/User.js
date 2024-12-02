@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const ObjectId = mongoose.SchemaTypes.ObjectId;
 
-const OrderSchema = new mongoose.Schema({
-    status: String,
-    userId: {
-        type: ObjectId,
-        ref: 'User'
-    },
-    deliveryDate: Date,
+const UserSchema = new mongoose.Schema({
+    name: String,
+    email: String,
+    password: String,
+    birthday: Date,
     tokens: [],
+    role:String
 }, { timestamps: true });
 
-const Order = mongoose.model('Order', OrderSchema);
+const User = mongoose.model('User', UserSchema);
 
-module.exports = Order;
+module.exports = User;
