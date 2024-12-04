@@ -9,6 +9,7 @@ const PostSchema = new mongoose.Schema({
 PostSchema.index({
     name: "text",
     likes: [{ type: ObjectId }],
+    commentIds: [{type: ObjectId, ref: "Post"}]
   });
   
 const Post = mongoose.model('Post', PostSchema);
