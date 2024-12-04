@@ -7,14 +7,14 @@ const CommentSchema = new mongoose.Schema({
 
 CommentSchema.index({
     body: "text",
-    // userId: [{
-    //     type: ObjectId,
-    //     ref: 'User'
-    // }],
-    postId: [{
+    userId: {
+        type: ObjectId,
+        ref: 'User'
+    },
+    postId: {
         type: ObjectId,
         ref: 'Post'
-    }],
+    },
   });
   
 const Comment = mongoose.model('Comment', CommentSchema);
