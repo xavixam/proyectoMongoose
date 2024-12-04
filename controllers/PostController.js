@@ -1,4 +1,5 @@
 const Post = require("../models/Post")
+const User = require("../models/User")
 
 const PostController = {
     async create(req, res) {
@@ -60,7 +61,46 @@ const PostController = {
             console.error(error);
         }
     },
-
+    async like(req, res) {
+        try {
+            //damos like al producto
+            const post = await Post.findByIdAndUpdate(
+                req.params._id,
+                { $push: { likes: req.user._id } },
+                { new: true }
+            );
+            // añadimos en la lista de deseos el producto al que hemos dado like
+            await User.findByIdAndUpdate(
+                req.user._id,
+                { $push: { likes: req.params._id } },
+                { new: true }
+            );
+            res.send(post);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "There was a problem with your like" });
+        }
+    },
+    async deleteLike(req, res) {
+        try {
+            //damos like al producto
+            const post = await Post.findByIdAndUpdate(
+                req.params._id,
+                { $push: { likes: req.user._id } },
+                { new: true }
+            );
+            // añadimos en la lista de deseos el producto al que hemos dado like
+            await User.findByIdAndUpdate(
+                req.user._id,
+                { $pull: { likes: req.params._id } },
+                { new: true }
+            );
+            res.send(post);
+        } catch (error) {
+            console.error(error);
+            res.status(500).send({ message: "There was a problem with your like" });
+        }
+    },
 }
 
 module.exports = PostController
