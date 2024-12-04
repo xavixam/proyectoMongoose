@@ -1,11 +1,8 @@
-1.1.Endpoints
-  Posts
+Posts
 Endpoint para crear un post( tiene que estar autenticado)
 Endpoint para actualizar un post ( tiene que estar autenticado)
 Endpoint para eliminar un post( tiene que estar autenticado)
 Endpoint para traer todos los posts junto a los usuarios que hicieron ese post y junto a los comentarios del post
-Endpoint para buscar post por nombre
-Endpoint para buscar post por id
 Implementa validación a la hora de crear un post para que se rellene todos los campos(salvo la imagen, que no sea requerida) y si no se hace que devuelva un mensaje
 
 Likes:
