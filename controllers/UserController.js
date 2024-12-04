@@ -31,7 +31,7 @@ const UserController = {
                     return res.status(400).send({message: "There was a problem please verify the fields and try again"})
                 }
 
-                const token = jwt.sign({ _id:user._id}, JWT_SECRET);
+                const token = jwt.sign({ _id:user._id}, JWT_SECRET);cls
                 if (user.tokens.length > 4) user.tokens.shift();
                 user.tokens.push(token);
                 await user.save();
@@ -39,8 +39,6 @@ const UserController = {
             }else{
                 res.send({ message: 'There was a problem please verify the fields and try again'});
             }
-            
-            
           
         } catch (error) {
             console.error(error);
