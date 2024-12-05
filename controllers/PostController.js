@@ -1,5 +1,6 @@
 const Post = require("../models/Post")
 const User = require("../models/User")
+const Comment = require("../models/Comment")
 
 const PostController = {
     async create(req, res) {
@@ -14,9 +15,9 @@ const PostController = {
     },
     async getAll(req, res) {
         try {
-            const products = await Post.find()
-            .populate("")
-            res.send(products)
+            const posts = await Post.find()
+            .populate("userId", "commentIds")
+            res.send(posts)
         } catch (error) {
             console.error(error);
         }
