@@ -15,6 +15,7 @@ const PostController = {
     async getAll(req, res) {
         try {
             const products = await Post.find()
+            .populate("")
             res.send(products)
         } catch (error) {
             console.error(error);

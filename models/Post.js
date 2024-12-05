@@ -3,13 +3,14 @@ const ObjectId = mongoose.SchemaTypes.ObjectId;
 
 const PostSchema = new mongoose.Schema({
     title: String,
-    body: String
+    body: String,
+    likes: [{ type: ObjectId }],
+    commentIds: [{type: ObjectId, ref: "Post"}]
 }, { timestamps: true });
 
 PostSchema.index({
     name: "text",
-    likes: [{ type: ObjectId }],
-    commentIds: [{type: ObjectId, ref: "Post"}]
+    
   });
   
 const Post = mongoose.model('Post', PostSchema);
