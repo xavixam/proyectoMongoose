@@ -5,6 +5,7 @@ const Comment = require("../models/Comment")
 const PostController = {
     async create(req, res) {
         try {
+            req.body.userId = req.user._id;
             const post = await Post.create(req.body)
 
             res.status(201).send({ message: "New post successfully created", post })
@@ -16,8 +17,9 @@ const PostController = {
     async getAll(req, res) {
         try {
             const posts = await Post.find()
-            .populate("userId", "commentIds")
-            res.send(posts)
+                .populate("userId") // Popular los datos del usuario
+                .populate("commentIds"); // Popular los comentarios
+            res.send(posts);
         } catch (error) {
             console.error(error);
         }
