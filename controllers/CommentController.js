@@ -4,10 +4,11 @@ const Post = require("../models/Post")
 const CommentController = {
     async create(req, res) {
         try {
+            req.body.userId = req.user._id;
             const comment = await Comment.create({...req.body,
                 postId: req.params._id
             })
-            await Post.findByIdAndUpdate(req.params._id, { $push: { commentIds: comment._id } })
+            const postObjetivo = await Post.findByIdAndUpdate(req.params._id, { $push: { commentIds: comment._id } })
 
             res.status(201).send({ message: "New comment successfully created", comment })
         } catch (error) {
