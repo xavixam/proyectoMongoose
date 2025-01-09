@@ -1,7 +1,9 @@
 const User = require('../models/User.js');
 const jwt = require('jsonwebtoken');
-const { JWT_SECRET } = require('../config/keys.js')
+require("dotenv").config()
+const JWT_SECRET = process.env.jwt_secret
 const Post = require('../models/Post.js');
+
 const isAuthor = async(req, res, next) => {
     try {
         const post = await Post.findById(req.params._id);

@@ -16,7 +16,8 @@ const PostController = {
     async getAll(req, res) {
         try {
             const posts = await Post.find()
-            .populate("userId", "commentIds")
+            .populate("userId")
+            .populate("commentIds")
             res.send(posts)
         } catch (error) {
             console.error(error);

@@ -1,7 +1,8 @@
-const { JWT_SECRET } = require("../config/keys")
 const bcrypt = require("bcryptjs");
 const User = require("../models/User")
 const jwt = require("jsonwebtoken")
+require("dotenv").config()
+const JWT_SECRET = process.env.jwt_secret
 
 const UserController = {
   async create(req, res) {
@@ -35,12 +36,10 @@ const UserController = {
         if (user.tokens.length > 4) user.tokens.shift();
         user.tokens.push(token);
         await user.save();
-        res.send({ message: 'Bienvenid@ ' + user.name, token });
+        res.send({ message: 'Bienvenid@ ' + user.name, token, user });
       } else {
         res.send({ message: 'There was a problem please verify the fields and try again' });
       }
-
-
 
     } catch (error) {
       console.error(error);
@@ -82,20 +81,6 @@ const UserController = {
       });
     }
   },
-  async logout(req, res) {
-    try {
-      await User.findByIdAndUpdate(req.user._id, {
-        $pull: { tokens: req.headers.authorization },
-      });
-      res.send({ message: "Desconectado con éxito" });
-    } catch (error) {
-      console.error(error);
-      res.status(500).send({
-        message: "Hubo un problema al intentar desconectar al usuario",
-      });
-    }
-  },
-
 }
 
 
