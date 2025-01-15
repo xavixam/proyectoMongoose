@@ -27,6 +27,8 @@ const PostController = {
     async getById(req, res) {
         try {
             const post = await Post.findById(req.params._id)
+            .populate("userId") // Popular los datos del usuario
+            .populate("commentIds"); // Popular los comentarios
             res.send(post)
         } catch (error) {
             console.error(error);
@@ -34,12 +36,12 @@ const PostController = {
     },
     async getByName(req, res) {
         try {
-            const products = await Post.find({
+            const posts = await Post.find({
                 $text: {
                     $search: req.params.name,
                 },
             });
-            res.send(products);
+            res.send(posts);
         } catch (error) {
             console.log(error);
         }
@@ -105,6 +107,30 @@ const PostController = {
             res.status(500).send({ message: "There was a problem with your like" });
         }
     },
+    async getUserPosts(req, res) {
+        try {
+          const { _id } = req.params; // Obtén el ID del usuario desde los parámetros de la URL
+
+          // Busca los posts relacionados con el usuario especificado y popula los datos del usuario
+          const posts = await Post.find({ userId:_id })
+            .populate("userId") // Incluye el nombre y correo del usuario
+
+          if (posts.length === 0) {
+            return res.status(404).send({ message: "No posts found for this user" });
+          }
+
+          res.status(200).send({ 
+            message: "Posts retrieved successfully", 
+            posts 
+          });
+        } catch (error) {
+          console.error(error);
+          res.status(500).send({
+            message: "There was a problem fetching the posts",
+            error,
+          });
+        }
+      },
 }
 
 module.exports = PostController

@@ -81,6 +81,25 @@ const UserController = {
       });
     }
   },
+  async getUserInfo(req, res, next) {
+    try {
+      const posts = await User.findByPk(req.user.id, {
+        include: {
+          model: Order,
+          include: {
+            model: Product,//modelo que esta relacionado
+            attributes: ["name"],//atributos del modelo que quiero mostrar
+            through: { attributes: [] }//para que no se muestren los atributos de la tabla intermedia
+          },
+        }
+      });
+      res.status(200).send(posts)
+    } catch (error) {
+      console.error(error);
+      next(error)
+      res.status(500).send({ message: "ERROR", error })
+    }
+  },
 }
 
 
